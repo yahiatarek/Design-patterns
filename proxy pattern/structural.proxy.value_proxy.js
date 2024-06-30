@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:92daaa83c8563e02ebbf2f531d2afc74fae660f9d3a24095ee959ea585c81542
-size 309
+class Percentage
+{
+  constructor(percent)
+  {
+    this.percent = percent; // 0 to 100
+  }
+
+  toString()
+  {
+    return `${this.percent}%`;
+  }
+
+  valueOf()
+  {
+    return this.percent/100;
+  }
+}
+
+let fivePercent = new Percentage(5);
+console.log(`${fivePercent} of 50 is ${50*fivePercent}`);

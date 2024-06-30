@@ -1,3 +1,52 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1dd2de3169a283b8a1a60ed43731d610579fae24e7938f2acfd07590abba66ec
-size 875
+class VectorRenderer
+{
+  renderCircle(radius)
+  {
+    console.log(`Drawing a circle of radius ${radius}`);
+  }
+}
+
+class RasterRenderer
+{
+  renderCircle(radius)
+  {
+    console.log(`Drawing pixels for circle of radius ${radius}`);
+  }
+}
+
+class Shape
+{
+  constructor(renderer)
+  {
+    this.renderer = renderer;
+  }
+}
+
+class Circle extends Shape
+{
+  constructor(renderer, radius) {
+    super(renderer);
+    this.radius = radius;
+  }
+
+  draw()
+  {
+    this.renderer.renderCircle(this.radius);
+  }
+
+  resize(factor)
+  {
+    this.radius *= factor;
+  }
+}
+
+// imagine Square, Triangle
+// different ways of rendering: vector, raster
+// we don't want a cartesian product of these
+
+let raster = new RasterRenderer();
+let vector = new VectorRenderer();
+let circle = new Circle(vector, 5);
+circle.draw();
+circle.resize(2);
+circle.draw();

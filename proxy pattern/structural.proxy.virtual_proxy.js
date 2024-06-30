@@ -1,3 +1,38 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ee0d2a8f2e858e1a60e5c4cc0dcf06689b228e8f5b6656f1e303c7233dddd4c7
-size 586
+class Image
+{
+  constructor(url)
+  {
+    this.url = url;
+    console.log(`Loading image from ${this.url}`);
+  }
+
+  draw()
+  {
+    console.log(`Drawing image ${this.url}`);
+  }
+}
+
+class LazyImage
+{
+  constructor(url)
+  {
+    this.url = url;
+  }
+
+  draw()
+  {
+    if (!this.image)
+      this.image = new Image(this.url);
+    this.image.draw();
+  }
+}
+
+function drawImage(img)
+{
+  console.log('About to draw the image');
+  img.draw();
+  console.log('Done drawing the image');
+}
+
+let img = new LazyImage('http://pokemon.com/pikachu.png');
+drawImage(img);

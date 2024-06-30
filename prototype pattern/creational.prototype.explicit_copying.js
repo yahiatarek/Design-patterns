@@ -1,3 +1,56 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:99ca802d409c5f19434afb9db03b17e0efa61d2d846327a1dae0815549cd130c
-size 1020
+class Address
+{
+  constructor(streetAddress, city, country) {
+    this.streetAddress = streetAddress;
+    this.city = city;
+    this.country = country;
+  }
+
+  deepCopy()
+  {
+    return new Address(
+      this.streetAddress,
+      this.city,
+      this.country
+    );
+  }
+
+  toString()
+  {
+    return `Address: ${this.streetAddress}, ` +
+      `${this.city}, ${this.country}`;
+  }
+}
+
+class Person
+{
+  constructor(name, address)
+  {
+    this.name = name;
+    this.address = address; //!
+  }
+
+  deepCopy()
+  {
+    return new Person(
+      this.name,
+      this.address.deepCopy() // needs to be recursive
+    );
+  }
+
+  toString()
+  {
+    return `${this.name} lives at ${this.address}`;
+  }
+}
+
+let john = new Person('John',
+  new Address('123 London Road', 'London', 'UK'));
+
+let jane = john.deepCopy();
+
+jane.name = 'Jane';
+jane.address.streetAddress = '321 Angel St'; // oops
+
+console.log(john.toString()); // oops, john is called 'jane'
+console.log(jane.toString());
